@@ -1,0 +1,15 @@
+{
+    "token": "MTU1MjgzMjU5NDg4OTE0NjM3OQ.G7uaWr.LiKDHcu9g33cQQbge9iRhPHSPF9SU0vHFMWJlM",
+    "anti_link": false,
+    "anti_spam": true,
+    "spam_msg_limit": "5",
+    "spam_time_frame": "5",
+    "anti_caps": true,
+    "caps_threshold": "90",
+    "anti_mentions": true,
+    "max_mentions": "5",
+    "bad_words_enabled": true,
+    "bad_words": "negr",
+    "roles_channel_id": "1552405503437443214",
+    "roles_message_text": "# role\n\n<@&1539241329899474954> - **je vlastník serveru, který rozhoduje, co se na server přidá**\n\n<@&1552268147179135046> - **je člen A-Teamu, který s majitelem dělá změny na serveru a hlídá ho**\n\n<@&1539240450810978364> - **je člen A-Teamu, který může také provádět změny na serveru (na žádost majitele) a hlídá server**\n\n<@&1552391311754133555> - **je člen A-Teamu, který testuje, zda všechno funguje**\n\n<@&1549866576029814784> - **je role pro členy, kteří jsou aktivní na serveru a ve voice chatu (VC)**\n\n<@&1539242304013992048> - **je role, kterou mají všichni na serveru**\n\n<@&1543385078992871524> / <@&1543385813943984239> - **je pro členy, kteří si o roli požádají**\n\n<@&1540028254885257256> / <@&1540028432614817862> / <@&1540028872312225914> / <@&1540028968273449002> / <@&1553041371986927657> - **je pro členy, kteří si požádají o barvu přezdívky na serveru**\n\n<@&1553032262696566915> / <@&1553032409073586186> - **je pro členy, kteří si požádají o zobrazení svého věku**\n\n<@&1549872649877069924> - **je pro členy, kteří dají serveru Server Boost**\n\n👇 **Vyber si své role v menu níže:**"
+}
