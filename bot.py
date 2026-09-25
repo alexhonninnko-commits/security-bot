@@ -46,7 +46,7 @@ def load_config():
         except Exception:
             pass
     return {
-        "token": "MTU1MjgzMjU5NDg4OTE0NjM3OQ.GZDhfF.1EJP3StvkgAvR5nUErECQMS5mbDb4rSk6rk-Zc",
+        "token": "Discord Token",
         "anti_link": True,
         "anti_spam": True,
         "spam_msg_limit": 5,
