@@ -1,30 +1,10 @@
 import os
 import time
-import sqlite3
 from collections import defaultdict
 import discord
 from discord.ext import commands
 
 from keep_alive import keep_alive
-
-DB_NAME = "database.db"
-
-def init_db():
-    conn = sqlite3.connect(DB_NAME)
-    cursor = conn.cursor()
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            user_id INTEGER PRIMARY KEY,
-            username TEXT,
-            joined_at TEXT,
-            warnings INTEGER DEFAULT 0
-        )
-    """)
-    conn.commit()
-    conn.close()
-    print("[DATABÁZE] SQLite databáze byla úspěšně inicializována.")
-
-init_db()
 
 class DiscordBot(commands.Bot):
     def __init__(self):
@@ -45,6 +25,7 @@ class DiscordBot(commands.Bot):
             await self.process_commands(message)
             return
 
+        # Anti-link ochrana
         if any(link in message.content.lower() for link in ["http://", "https://", "discord.gg/"]):
             try:
                 await message.delete()
@@ -53,6 +34,7 @@ class DiscordBot(commands.Bot):
             except Exception:
                 pass
 
+        # Anti-spam ochrana
         now = time.time()
         user_timestamps = self.user_message_timestamps[message.author.id]
         user_timestamps.append(now)
