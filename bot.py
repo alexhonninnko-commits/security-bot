@@ -4,8 +4,6 @@ from collections import defaultdict
 import discord
 from discord.ext import commands
 
-from keep_alive import keep_alive
-
 class DiscordBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.default()
