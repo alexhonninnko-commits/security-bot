@@ -41,7 +41,6 @@ client.once('ready', () => {
 client.on('messageCreate', async (message) => {
     if (message.author.bot || !message.guild) return;
 
-    // Pokud je to administrátor, zpracujeme případné příkazy a dál neřešíme ochranu
     if (message.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
         await handleCommands(message);
         return;
@@ -98,7 +97,7 @@ async function handleCommands(message) {
         }
 
         try {
-            // Vytvoření výběrového menu pro barvy
+            // Menu pro barvy
             const rowColor = new ActionRowBuilder().addComponents(
                 new StringSelectMenuBuilder()
                     .setCustomId('select_color_role')
@@ -112,13 +111,23 @@ async function handleCommands(message) {
                     ])
             );
 
-            // Odeslání zprávy s textem i interaktivním menu
+            // Menu pro věk
+            const rowAge = new ActionRowBuilder().addComponents(
+                new StringSelectMenuBuilder()
+                    .setCustomId('select_age_role')
+                    .setPlaceholder('🎂 Vyber si svůj věk...')
+                    .addOptions([
+                        { label: '13-17+', value: '1553032262696566915', emoji: '🔞' },
+                        { label: '18+', value: '1553032409073586186', emoji: '🔞' },
+                    ])
+            );
+
+            // Odeslání zprávy s textem a oběma menu
             await message.channel.send({
                 content: DEFAULT_ROLES_MSG + "\n\n👇 **Vyber si své role v menu níže:**",
-                components: [rowColor]
+                components: [rowColor, rowAge]
             });
 
-            // Smaže tvůj příkaz !setup_roles, aby nebyl v chatu
             await message.delete().catch(() => {});
         } catch (err) {
             console.error("Chyba při odesílání rolí:", err);
@@ -127,10 +136,11 @@ async function handleCommands(message) {
     }
 }
 
-// Reakce na interakci s menu (přidávání/ubírání rolí po kliknutí)
+// Reakce na interakci s menu (barvy i věk)
 client.on('interactionCreate', async (interaction) => {
     if (!interaction.isStringSelectMenu()) return;
-    if (interaction.customId === 'select_color_role') {
+    
+    if (interaction.customId === 'select_color_role' || interaction.customId === 'select_age_role') {
         const roleId = interaction.values[0];
         const role = interaction.guild.roles.cache.get(roleId);
 
