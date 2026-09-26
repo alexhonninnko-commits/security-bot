@@ -39,10 +39,10 @@ client.once('ready', () => {
 
     // --- NASTAVENÍ PROFILU BOTA PŘI SPUŠTĚNÍ ---
     // 1. Stav (Můžeš změnit na: 'online', 'idle', 'dnd', 'invisible')
-    client.user.setStatus('online');
+    client.user.setStatus('dnd');
 
     // 2. Bio / Aktivita (Co bot "právě dělá" pod svým jménem)
-    client.user.setActivity('Zabezpečuje server | !setup_roles', { type: ActivityType.Playing });
+    client.user.setActivity('Zabezpečuje server a mnoho dalšího', { type: ActivityType.Playing });
     // Typy aktivit mohou být: ActivityType.Playing, ActivityType.Streaming, ActivityType.Listening, ActivityType.Watching
 });
 
@@ -82,7 +82,7 @@ client.on('messageCreate', async (message) => {
     if (timestamps.length > 5) {
         try {
             await message.delete();
-            const warning = await message.channel.send(`${message.author}, nepřestávej spamovat!`);
+            const warning = await message.channel.send(`${message.author}, přestň spamovat!`);
             setTimeout(() => warning.delete().catch(() => {}), 5000);
             return;
         } catch (err) {
