@@ -42,7 +42,7 @@ client.once('ready', () => {
     client.user.setStatus('dnd');
 
     // 2. Bio / Aktivita (Co bot "právě dělá" pod svým jménem)
-    client.user.setActivity('Zabezpečuje server a mnoho dalšího', { type: ActivityType.Playing });
+    client.user.setActivity('Zabezpečuje server a mnoho dalšího', { type: ActivityType.Watching });
     // Typy aktivit mohou být: ActivityType.Playing, ActivityType.Streaming, ActivityType.Listening, ActivityType.Watching
 });
 
