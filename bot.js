@@ -1,36 +1,4 @@
-import { logger } from '../utils/logger.js';
-
-export const botConfig = {
-  // =========================
-  // BOT PRESENCE (what users see under the bot name)
-  // =========================
-  // `status` options:
-  // - "online"    = green dot
-  // - "idle"      = yellow moon
-  // - "dnd"       = red do-not-disturb
-  // - "invisible" = appears offline
-  presence: {
-    // Current online state shown on Discord.
-    status: "online",
-
-    // Activity lines shown under the bot name.
-    // `type` number mapping from Discord:
-    // 0 = Playing
-    // 1 = Streaming
-    // 2 = Listening
-    // 3 = Watching
-    // 4 = Custom
-    // 5 = Competing
-    activities: [
-      {
-        name: " ", // required by Discord API, not shown in the client
-        state: "just in time",     // this is what people actually see
-        type: 4,               // Custom
-      },
-    ],
-  },
-    
-const { Client, GatewayIntentBits, PermissionsBitField, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, PermissionsBitField, ActionRowBuilder, StringSelectMenuBuilder, ActivityType } = require('discord.js');
 
 const client = new Client({
     intents: [
@@ -68,6 +36,14 @@ const DEFAULT_ROLES_MSG = `# role
 
 client.once('ready', () => {
     console.log(`[BOT] Přihlášen jako: ${client.user.tag} (ID: ${client.user.id})`);
+
+    // --- NASTAVENÍ PROFILU BOTA PŘI SPUŠTĚNÍ ---
+    // 1. Stav (Můžeš změnit na: 'online', 'idle', 'dnd', 'invisible')
+    client.user.setStatus('online');
+
+    // 2. Bio / Aktivita (Co bot "právě dělá" pod svým jménem)
+    client.user.setActivity('Zabezpečuje server | !setup_roles', { type: ActivityType.Playing });
+    // Typy aktivit mohou být: ActivityType.Playing, ActivityType.Streaming, ActivityType.Listening, ActivityType.Watching
 });
 
 client.on('messageCreate', async (message) => {
@@ -154,7 +130,6 @@ async function handleCommands(message) {
                     ])
             );
 
-            // Odeslání zprávy s textem a oběma menu
             await message.channel.send({
                 content: DEFAULT_ROLES_MSG + "\n\n👇 **Vyber si své role v menu níže:**",
                 components: [rowColor, rowAge]
@@ -190,7 +165,7 @@ client.on('interactionCreate', async (interaction) => {
             }
         } catch (err) {
             console.error(err);
-            await interaction.reply({ content: "❌ Nemám oprávnění spravovat tuto roli! Ujisti se, že botova role je v seznamu rolí výše než role, kterou se snaží přidat.", ephemeral: true });
+            await interaction.reply({ content: "❌ Nemám oprávnění spravovat tuto roli! Zkontroluj pořadí rolí.", ephemeral: true });
         }
     }
 });
